@@ -1,4 +1,4 @@
-function y = synthsin(f, fn, d, fs, vol)
+function y = synthsin(f, fn, d, fs)
 % Synthesize a sin wave with fixed frequency.
 %
 % SYNOPSIS: y = synthsin(f, d, fs, vol).
@@ -9,12 +9,12 @@ function y = synthsin(f, fn, d, fs, vol)
 %       fs: sampling rate in Hz.
 %       vol: loudness factor in [0, 1].
 %
-% OUTPUT: the synthesized 1D signal.
+% OUTPUT y: the synthesized 1D signal.
 %
         if fn ~= 0
-                t = linspace(0, d, ceil(fs*d));
-                y = vol*sin(2*pi*f*t);
+                t = dom(d, fs);
+                y = sin(2*pi*f*t);
         else
-                y = zero(fs*d);
+                y = zeros(1, fs*d);
         end
 endfunction
