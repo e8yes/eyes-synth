@@ -17,4 +17,4 @@ function ys = stitch(ya, yb, win)
         yf = filter(b, a, yf);
         % put the parts together.
         ys = [ya(1:end - sl) yf yb(sr + 1:end)];
-endfunction
+end

@@ -34,4 +34,4 @@ function p = noteof(nam, oct)
         case "B"
                 p = 11 + 12*(oct + 1);
         end
-endfunction
+end

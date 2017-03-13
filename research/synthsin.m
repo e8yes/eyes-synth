@@ -17,4 +17,4 @@ function y = synthsin(f, fn, d, fs)
         else
                 y = zeros(1, fs*d);
         end
-endfunction
+end

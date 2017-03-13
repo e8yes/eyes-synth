@@ -9,4 +9,4 @@ function t = dom(d, fs)
 % OUTPUT t: discreted domain values.
 %
         t = linspace(0, d, ceil(fs*d));
-endfunction
+end

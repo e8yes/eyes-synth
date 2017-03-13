@@ -28,4 +28,4 @@ function y = play(notes, forces, ds, synth, fs, vol)
         end
         % normalize the signal.
         y = vol*y/max(y);
-endfunction
+end

@@ -8,10 +8,10 @@ d = 1;
 force = 15;
 
 % wave of sin wave.
-ysin = synthsin(fc4, force, d, fs());
+ysin = synthsin(fc4, force, d, fs(), 1.0);
 
 % wave of hammered wave.
-yham = synthhammer(fc4, force, d, fs());
+yham = synthhammer(fc4, force, d, fs(), 1.0);
 
 
 

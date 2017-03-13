@@ -9,4 +9,4 @@ function s = noteval(n, bpm)
 % OUTPUT duration in second.
 %
         s = 60/bpm*n;
-endfunction
+end

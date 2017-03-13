@@ -8,4 +8,4 @@ function f = notef(p)
 % OUTPUT f: frequency of p.
 %
         f = 2^((p - 69)/12) * 440;
-endfunction
+end

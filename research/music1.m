@@ -67,4 +67,4 @@ function [notes, forces, ds] = music1(bpm)
                 
                 noteval(1, bpm) noteval(1, bpm) noteval(1, bpm);
         ];
-endfunction
+end

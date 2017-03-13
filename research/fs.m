@@ -4,4 +4,4 @@ function s = fs()
 % SYNOPSIS: s = fs().
 %
         s = 44100;
-endfunction
+end
