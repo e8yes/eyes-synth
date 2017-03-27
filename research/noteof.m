@@ -10,28 +10,28 @@ function p = noteof(nam, oct)
 %
         switch nam
         case "C"
-                p = 12*(oct + 1);
+                p = 12*oct;
         case "C#"
-                p = 1 + 12*(oct + 1);
+                p = 1 + 12*oct;
         case "D"
-                p = 2 + 12*(oct + 1);
+                p = 2 + 12*oct;
         case "D#"
-                p = 3 + 12*(oct + 1);
+                p = 3 + 12*oct;
         case "E"
-                p = 4 + 12*(oct + 1);
+                p = 4 + 12*oct;
         case "F"
-                p = 5 + 12*(oct + 1);
+                p = 5 + 12*oct;
         case "F#"
-                p = 6 + 12*(oct + 1);
+                p = 6 + 12*oct;
         case "G"
-                p = 7 + 12*(oct + 1);
+                p = 7 + 12*oct;
         case "G#"
-                p = 8 + 12*(oct + 1);
+                p = 8 + 12*oct;
         case "A"
-                p = 9 + 12*(oct + 1);
+                p = 9 + 12*oct;
         case "A#"
-                p = 10 + 12*(oct + 1);
+                p = 10 + 12*oct;
         case "B"
-                p = 11 + 12*(oct + 1);
+                p = 11 + 12*oct;
         end
 end

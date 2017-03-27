@@ -24,7 +24,7 @@ function y = play(notes, forces, ds, synth, fs, vol)
                         iy += [r zeros(size(iy) - size(r))];
                 end
                 % stitch the current hit with the previous hit.
-                y = stitch(y, iy, 100/44100*fs);
+                y = stitch(y, iy, ceil(50/44100*fs));
         end
         % normalize the signal.
         y = vol*y/max(y);

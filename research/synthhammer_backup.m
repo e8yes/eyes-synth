@@ -1,11 +1,11 @@
-% this functio is instead implemented in c++.
+% this function is instead implemented in c++.
 
-%function y = synthhammer(f, fn, d, fs)
+%function y = synthhammer(notes, fn, d, fs)
 % Synthesize the hammering of a piano string.
 %
 % SYNOPSIS: y = synthhammer(f, fn, d, fs, vol).
 %
-% INPUT f: frequency in Hz, a scalar.
+% INPUT notes: 1xn midi note number.
 %       fn: forces in newton, a scalar.
 %       d: duration in seconds.
 %       fs: sampling rate in Hz.

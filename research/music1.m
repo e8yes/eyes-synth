@@ -5,36 +5,36 @@ function [notes, forces, ds] = music1(bpm)
 %
 % INPUT bpm: beats per minute.
 %
-% OUTPUT notes: mxn frequencies in Hz.
+% OUTPUT notes: mxn midi note numbers.
 %        forces: mxn forces in newton.
 %        ds: mxn note durations in seconds.
 %
         notes = [
-                notef(noteof("C", 4)) notef(noteof("E", 4)) notef(noteof("C", 5));
-                notef(noteof("C", 4)) notef(noteof("E", 4)) notef(noteof("C", 5));
-                notef(noteof("B", 3)) notef(noteof("G", 4)) notef(noteof("D", 5));
-                notef(noteof("C", 4)) notef(noteof("C", 5)) notef(noteof("E", 5));
+                noteof("C", 4) noteof("E", 4) noteof("C", 5);
+                noteof("C", 4) noteof("E", 4) noteof("C", 5);
+                noteof("B", 3) noteof("G", 4) noteof("D", 5);
+                noteof("C", 4) noteof("C", 5) noteof("E", 5);
                 
-                notef(noteof("D", 4)) notef(noteof("C", 5)) notef(noteof("F", 5));
-                notef(noteof("E", 4)) notef(noteof("C", 5)) notef(noteof("G", 5));
-                notef(noteof("C", 4)) notef(noteof("C", 5)) notef(noteof("E", 5));
-                notef(noteof("D", 4)) notef(noteof("C", 5)) notef(noteof("F", 5));
-                notef(noteof("E", 4)) notef(noteof("C", 5)) notef(noteof("G", 5));
+                noteof("D", 4) noteof("C", 5) noteof("F", 5);
+                noteof("E", 4) noteof("C", 5) noteof("G", 5);
+                noteof("C", 4) noteof("C", 5) noteof("E", 5);
+                noteof("D", 4) noteof("C", 5) noteof("F", 5);
+                noteof("E", 4) noteof("C", 5) noteof("G", 5);
                 
-                notef(noteof("F", 4)) notef(noteof("C", 5)) notef(noteof("A", 5));
+                noteof("F", 4) noteof("C", 5) noteof("A", 5);
                 
-                notef(noteof("E", 4)) notef(noteof("C", 5)) notef(noteof("G", 5));
+                noteof("E", 4) noteof("C", 5) noteof("G", 5);
                 
-                notef(noteof("F", 4)) notef(noteof("C", 5)) notef(noteof("A", 5));
-                notef(noteof("D", 4)) notef(noteof("G", 4)) notef(noteof("B", 5));
-                notef(noteof("C", 4)) notef(noteof("G", 4)) notef(noteof("C", 6));
-                notef(noteof("B", 4)) notef(noteof("F", 5)) notef(noteof("D", 6));
-                notef(noteof("C", 5)) notef(noteof("E", 5)) notef(noteof("E", 6));
-                notef(noteof("A", 4)) notef(noteof("F", 5)) notef(noteof("D", 6));
+                noteof("F", 4) noteof("C", 5) noteof("A", 5);
+                noteof("D", 4) noteof("G", 4) noteof("B", 5);
+                noteof("C", 4) noteof("G", 4) noteof("C", 6);
+                noteof("B", 4) noteof("F", 5) noteof("D", 6);
+                noteof("C", 5) noteof("E", 5) noteof("E", 6);
+                noteof("A", 4) noteof("F", 5) noteof("D", 6);
                 
-                notef(noteof("G", 3)) notef(noteof("E", 5)) notef(noteof("C", 6));
-                notef(noteof("G", 3)) notef(noteof("D", 4)) notef(noteof("B", 5));
-                notef(noteof("C", 4)) notef(noteof("E", 5)) notef(noteof("C", 6));
+                noteof("G", 3) noteof("E", 5) noteof("C", 6);
+                noteof("G", 3) noteof("D", 4) noteof("B", 5);
+                noteof("C", 4) noteof("E", 5) noteof("C", 6);
         ];
         
         forces = ones(size(notes));
