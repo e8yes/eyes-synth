@@ -98,19 +98,18 @@ Synthesis::hit(float v, const FeltHammer& fh, float fs, float d)
 
 /////////////////////////////////////////// Octave entrance ///////////////////////////////////////////
 DEFUN_DLD(synthhammer, args, ,
-          "Compute the displacement of the hammer when hitting on a static object.  "
-          "                                                                         "
-          "SYNOPSIS: y = synthhammer(note, fn, d, fs, vol).                         "
-          "						                                                    "
-          " INPUT note: midi note number.		                                    "
-          "       v: velocity in m/s, a scalar.                                     "
-          "       d: duration in seconds.		                                    "
-          "       fs: sampling rate in Hz.		                                    "
-          "       vol: loudness factor in [0, 1].	                                "
-          "					    	                                                "
+          "Compute the displacement of the hammer when hitting on a static object.      "
+          "                                                                             "
+          "SYNOPSIS: y = synthhammer(note, fn, d, fs, vol).                             "
+          "                                                                             "
+          " INPUT note: midi note number.                                               "
+          "       v: velocity in m/s, a scalar.                                         "
+          "       d: duration in seconds.                                               "
+          "       fs: sampling rate in Hz.                                              "
+          "                                                                             "
           " OUTPUT y: hammer displacement.	                                        ")
 {
-        if (args.length() < 5) {
+        if (args.length() < 4) {
                 print_usage();
                 return octave_value();
         }
@@ -118,7 +117,6 @@ DEFUN_DLD(synthhammer, args, ,
         double v = args(1).double_value();
         double d = args(2).double_value();
         int fs = args(3).int_value();
-        double vol = args(4).double_value();
 
         const FeltHammer& fh = gen_felt_hammer(note);
         Synthesis s;
@@ -128,11 +126,11 @@ DEFUN_DLD(synthhammer, args, ,
 
 int main()
 {
-        const FeltHammer& fh = gen_felt_hammer(33);
+        const FeltHammer& fh = gen_felt_hammer(63);
         std::cout << fh << std::endl;
 
         Synthesis s;
-        float h = s.hit(-5.0f, fh, 4410, 5);
+        float h = s.hit(-5.0f, fh, 4000000, 1);
         std::cout << h << std::endl;
         return 0;
 }
