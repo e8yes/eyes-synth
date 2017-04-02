@@ -54,8 +54,8 @@ struct Synthesis
 Matrix
 Synthesis::hit(float v, float f, const Soundboard& sbrd, float d, float fs)
 {
-        int nx = 30;
-        int ny = 30;
+        int nx = 100;
+        int ny = 100;
         int nt = static_cast<int>(std::ceil(d*fs));
 
         float hx = sbrd.a/nx;
@@ -142,7 +142,7 @@ int main()
         const Soundboard& sbrd = ::gen_soundboard();
 
         Synthesis s;
-        const Matrix& m = s.hit(-5.0f, 440, sbrd, 1, 4000);
+        const Matrix& m = s.hit(-.05f, 440, sbrd, 5, 4000);
         std::cout << m << std::endl;
         return 0;
 }
