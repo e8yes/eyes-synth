@@ -10,11 +10,11 @@
 /////////////////////////////////////////// Entities ///////////////////////////////////////////
 struct String
 {
+        float   f;              // Fundamental frequency.
         float   m;              // Total string mass.
         float   d;              // Diameter.
         float   l;              // Length.
         float   e;              // Young's modulus.
-        float   f;              // Fundamental frequency.
 
         float   c2;             // Wave speed squred.
         float   epsilon;        // Dispersion factor
@@ -182,81 +182,18 @@ struct Synthesis
         const Soundboard        sb;
         const Room              r;
 
-        double                  dt_r;
-        unsigned                st_s = 4;
-        unsigned                st_sb = 6;
-
-        double                  dx_s;
-        unsigned                mx_sb = 2;
-        unsigned                mx_r = 4;
-
-        unsigned                nsx;
-        unsigned                nrt;
-
         Synthesis(String s, FeltHammer fh, Soundboard sb, Room r):
                 s(s), fh(fh), sb(sb), r(r)
         {
         }
 
-        double tr(unsigned i)
-        {
-                return i*dt_r;
-        }
-
-        double ts(unsigned i)
-        {
-                return i*dt_r/st_s;
-        }
-
-        double tsb(unsigned i)
-        {
-                return i*dt_r/st_sb;
-        }
-
-        double xs(unsigned j)
-        {
-                return j*dx_s;
-        }
-
-        double xr(unsigned j)
-        {
-                return j*dx_s*mx_r;
-        }
-
-        double xsb(unsigned j)
-        {
-                return j*dx_s*mx_sb;
-        }
-
-        double ht(unsigned i, double ht) const
-        {
-        }
-
-        double svxt(unsigned j, unsigned i, double st, double sx) const
-        {
-                // Velocity of the string.
-        }
-
-        double sbvxyt(unsigned j, unsigned i)
-        {
-                // Velocity of the sound board
-        }
-
-        double rxyzt(unsigned j, unsigned i)
-        {
-        }
-
-        std::vector<double> hit(float v_hammer, unsigned fs, float d)
-        {
-                nsx = static_cast<unsigned>(fs/(2*s.f));
-                nrt = fs;
-                dx_s = s.l/nsx;
-                dt_r = d/fs;
-
-                for (unsigned i = 0; i < nrt; i ++) {
-                }
-        }
+        RowVector hit(float v_hammer, unsigned fs, float d);
 };
+
+RowVector
+Synthesis::hit(float v_hammer, unsigned fs, float d)
+{
+}
 
 
 /////////////////////////////////////////// Octave entrance ///////////////////////////////////////////
@@ -284,12 +221,8 @@ DEFUN_DLD(synthpiano, args, ,
         double vol = args(4).double_value();
 
         Synthesis s(gen_string(note), gen_felt_hammer(note), gen_soundboard(), gen_room());
-        const std::vector<double>& ysynth = s.hit(static_cast<float>(fn), static_cast<unsigned>(fs), d);
-
-        Matrix y(dim_vector(1, static_cast<int>(std::ceil(fs*d))));
-        for (unsigned i = 0; i < ysynth.size(); i ++)
-                y(static_cast<octave_idx_type>(i + 1)) = ysynth[i];
-        return octave_value(vol*y);
+        const RowVector& ysynth = s.hit(static_cast<float>(fn), static_cast<unsigned>(fs), d);
+        return octave_value(vol*ysynth);
 }
 
 /////////////////////////////////////////// Tests ///////////////////////////////////////////

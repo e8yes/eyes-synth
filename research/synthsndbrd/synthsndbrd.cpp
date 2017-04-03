@@ -42,7 +42,7 @@ Soundboard gen_soundboard()
 {
         // Spruce wedged plate.
         return Soundboard(.0175f, 433,
-                          .686f, 14.9f, .025f, .245f, .552f,
+                          .686e+9f, 14.9e+9f, .025f, .245f, .552e+9f,
                           1.4f, 1.4f, .7f, 1);
 }
 
@@ -54,8 +54,8 @@ struct Synthesis
 Matrix
 Synthesis::hit(float v, float f, const Soundboard& sbrd, float d, float fs)
 {
-        int nx = 100;
-        int ny = 100;
+        int nx = 50;
+        int ny = 50;
         int nt = static_cast<int>(std::ceil(d*fs));
 
         float hx = sbrd.a/nx;
@@ -91,8 +91,8 @@ Synthesis::hit(float v, float f, const Soundboard& sbrd, float d, float fs)
         m[1](x0,y0) = v*ht + m[0](x0,y0);
 
         for (int t = 1; t < nt; t ++) {
-                for (int j = 3; j <= ny - 3; j ++) {
-                        for (int i = 3; i <= nx - 3; i ++) {
+                for (int j = 2; j <= ny - 3; j ++) {
+                        for (int i = 2; i <= nx - 3; i ++) {
                                 m[T1(t)](i,j) = K1*(m[T0(t)](i+2,j) - 4*m[T0(t)](i+1,j) + 6*m[T0(t)](i,j) - 4*m[T0(t)](i-1,j) + m[T0(t)](i-2,j))
                                               + K2*(m[T0(t)](i+1,j+1) -2*m[T0(t)](i,j+1) + m[T0(t)](i-1,j+1)
                                                 - 2*(m[T0(t)](i+1,j) -2*m[T0(t)](i,j) + m[T0(t)](i-1,j))
@@ -142,7 +142,7 @@ int main()
         const Soundboard& sbrd = ::gen_soundboard();
 
         Synthesis s;
-        const Matrix& m = s.hit(-.05f, 440, sbrd, 5, 4000);
+        const Matrix& m = s.hit(-.0005f, 440, sbrd, .01f, 160000);
         std::cout << m << std::endl;
         return 0;
 }
