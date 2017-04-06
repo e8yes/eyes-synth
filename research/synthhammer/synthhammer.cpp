@@ -55,22 +55,18 @@ std::ostream& operator<<(std::ostream& os, const FeltHammer& fh)
 class Synthesis
 {
 public:
-        float   	hit(float v, const FeltHammer& fh, float fs, float d);
+        float   	hit(float v, const FeltHammer& fh, float d);
 };
 
-float u(float h, float y, float p)
-{
-        return std::pow(y - h, p);
-}
-
 float
-Synthesis::hit(float v, const FeltHammer& fh, float fs, float d)
+Synthesis::hit(float v, const FeltHammer& fh, float d)
 {
+        unsigned fs = static_cast<unsigned>(std::ceil(1.2f*fh.alpha*fh.q0));
         unsigned nt = static_cast<unsigned>(std::ceil(fs*d));
-        float ht = 1/fs;
+        float ht = 1.0f/fs;
 
-        float a = fh.alpha * ht * fh.q0 * fh.p;
-        float b = SQR(ht) * fh.q0;
+        float A = ht*fh.p/fh.m*fh.q0*fh.alpha;
+        float B = X2(ht)/fh.m*fh.q0;
         float yx0t = 0;
 
         float h[4];
@@ -83,15 +79,13 @@ Synthesis::hit(float v, const FeltHammer& fh, float fs, float d)
         for (unsigned t = 1; t < nt; t ++) {
                 if (h[T0(t)] > yx0t)
                         return h[T0(t)];
-                float c = a*u(h[T0(t)],yx0t,fh.p-1);
-                float d = b*u(h[T0(t)],yx0t,fh.p);
-                h[T1(t)] = 1.0f/(fh.m - c)*((2*fh.m - c)*h[T0(t)] - fh.m*h[T_1(t)] + d);
 
-                //float accel = (h[T1(t)] - 2*h[T0(t)] + h[T_1(t)])/SQR(ht);
-                //float v = fh.alpha*fh.q0*fh.p*u(h[T0(t)],yx0t,fh.p-1)*(h[T1(t)] - h[T0(t)])/ht;
-                //float p = fh.q0*u(h[T0(t)],yx0t,fh.p);
-                //float accel2 = (v + p)/fh.m;
-                //std::cout << t << ": (" << accel << "," << accel2 << ")" << std::endl;
+                unsigned t_1 = (t-1)%4;
+                unsigned t0 = (t)%4;
+                unsigned t1 = (t+1)%4;
+
+                float R = A*std::pow(-(h[t0]-yx0t),fh.p-1);
+                h[t1] = 1/(1+R)*(B*std::pow(-(h[t0]-yx0t),fh.p) + A*R*(h[t0] + ht*0) + 2*h[t0] - h[t_1]);
         }
         return h[T0(nt)];
 }
@@ -100,7 +94,7 @@ Synthesis::hit(float v, const FeltHammer& fh, float fs, float d)
 DEFUN_DLD(synthhammer, args, ,
           "Compute the displacement of the hammer when hitting on a static object.      "
           "                                                                             "
-          "SYNOPSIS: y = synthhammer(note, fn, d, fs, vol).                             "
+          "SYNOPSIS: y = synthhammer(note, fn, d).                              "
           "                                                                             "
           " INPUT note: midi note number.                                               "
           "       v: velocity in m/s, a scalar.                                         "
@@ -109,28 +103,27 @@ DEFUN_DLD(synthhammer, args, ,
           "                                                                             "
           " OUTPUT y: hammer displacement.	                                        ")
 {
-        if (args.length() < 4) {
+        if (args.length() < 3) {
                 print_usage();
                 return octave_value();
         }
         int note = args(0).int_value();
         double v = args(1).double_value();
         double d = args(2).double_value();
-        int fs = args(3).int_value();
 
         const FeltHammer& fh = gen_felt_hammer(note);
         Synthesis s;
-        float h = s.hit(v, fh, fs, d);
+        float h = s.hit(static_cast<float>(v), fh, static_cast<float>(d));
         return octave_value(h);
 }
 
 int main()
 {
-        const FeltHammer& fh = gen_felt_hammer(63);
+        const FeltHammer& fh = gen_felt_hammer(10);
         std::cout << fh << std::endl;
 
         Synthesis s;
-        float h = s.hit(-5.0f, fh, 4000000, 1);
+        float h = s.hit(-5.0f, fh, .001f);
         std::cout << h << std::endl;
         return 0;
 }
