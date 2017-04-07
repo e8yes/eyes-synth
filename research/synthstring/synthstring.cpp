@@ -77,18 +77,18 @@ double fundamental_frequency(int note)
 }
 
 /////////////////////////////////////////// Octave entrance ///////////////////////////////////////////
-DEFUN_DLD(synthwave, args, ,
-          "Generate a wave with initial wave speed.     "
-          "                                             "
-          "SYNOPSIS: y = wave(note, fn, d, fs, vol).    "
-          "						                        "
-          " INPUT note: midi note number.		        "
-          "       v: velocity in m/s, a scalar.         "
-          "       d: duration in seconds.		        "
-          "       fs: sampling rate in Hz.		        "
-          "       vol: loudness factor in [0, 1].	    "
-          "						                        "
-          " OUTPUT y: the synthesized 1D signal.	    ")
+DEFUN_DLD(synthstring, args, ,
+          "Generate a string wave with initial wave speed.  "
+          "                                                 "
+          "SYNOPSIS: y = wave(note, fn, d, fs, vol).        "
+          "						                            "
+          " INPUT note: midi note number.		            "
+          "       v: velocity in m/s, a scalar.             "
+          "       d: duration in seconds.		            "
+          "       fs: sampling rate in Hz.		            "
+          "       vol: loudness factor in [0, 1].	        "
+          "						                            "
+          " OUTPUT y: the synthesized 1D signal.	        s")
 {
         if (args.length() < 5) {
                 print_usage();
